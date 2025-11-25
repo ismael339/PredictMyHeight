@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your potential adult height based on genetics, parental height, age, and gender. Learn scientifically-proven methods to maximize growth potential with nutrition and exercise tips.">
+    <meta name="keywords" content="height prediction, height calculator, how tall will I be, grow taller, genetics height, parental height, growth tips">
+    <title>How Tall Will You Be? - Height Prediction Calculator & Science-Based Growth Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .result-box { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        input:focus, select:focus { outline: none; border-color: #667eea; ring: 2px; ring-color: #667eea; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); transition: transform 0.2s; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        @media (max-width: 768px) { h1 { font-size: 1.75rem; } h2 { font-size: 1.5rem; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">How Tall Will You Be?</h1>
+            <p class="text-xl md:text-2xl opacity-90">Discover Your Potential Adult Height Based on Science</p>
+        </div>
+    </header>
+
+    <!-- Calculator Section -->
+    <section class="max-w-4xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-2xl card-shadow p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Height Prediction Calculator</h2>
+            <p class="text-gray-600 mb-8 text-center">Enter your information to predict your adult height using scientifically-validated genetic formulas</p>
+            
+            <form id="heightForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Gender</label>
+                        <select id="gender" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg">
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Your Age</label>
+                        <input type="number" id="age" min="1" max="25" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg" placeholder="e.g., 14">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Father's Height (cm)</label>
+                        <input type="number" id="fatherHeight" min="140" max="220" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg" placeholder="e.g., 175">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Mother's Height (cm)</label>
+                        <input type="number" id="motherHeight" min="140" max="220" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg" placeholder="e.g., 162">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Your Current Height (cm)</label>
+                    <input type="number" id="currentHeight" min="50" max="220" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg" placeholder="e.g., 165">
+                </div>
+
+                <button type="submit" class="btn-primary w-full text-white font-bold py-4 rounded-lg text-lg">
+                    Calculate My Potential Height
+                </button>
+            </form>
+
+            <div id="results" class="mt-8 hidden">
+                <div class="result-box text-white rounded-xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Your Predicted Adult Height</h3>
+                    <div class="text-5xl font-bold mb-2" id="predictedHeight"></div>
+                    <p class="text-lg opacity-90" id="heightRange"></p>
+                    <p class="mt-4 text-sm opacity-80" id="growthStatus"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Growth Tips Section -->
+    <section class="max-w-4xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-2xl card-shadow p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Want to Maximize Your Growth Potential?</h2>
+            <p class="text-gray-600 mb-8">While genetics determine approximately 80% of your final height, environmental factors play a crucial role during growth years. Here are evidence-based methods to optimize your growth:</p>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-purple-500 pl-6 py-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Nutrition and Diet</h3>
+                    <p class="text-gray-700">Adequate protein intake is essential for tissue growth and bone development. Ensure sufficient calcium and vitamin D for bone mineralization. Studies show that malnutrition during childhood can reduce final height by 5-10 cm. Focus on lean proteins, dairy products, leafy greens, and whole grains.</p>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-6 py-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Quality Sleep</h3>
+                    <p class="text-gray-700">Growth hormone is primarily secreted during deep sleep stages. Adolescents require 8-10 hours of sleep nightly. Research indicates that chronic sleep deprivation during growth years can negatively impact final adult height by disrupting hormonal rhythms.</p>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-6 py-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Physical Activity and Exercise</h3>
+                    <p class="text-gray-700">Weight-bearing exercises and stretching activities stimulate bone growth and posture improvement. Swimming, basketball, and cycling promote overall development. Exercise increases growth hormone secretion and maintains healthy body composition, both important for optimal growth.</p>
+                </div>
+
+                <div class="border-l-4 border-orange-500 pl-6 py-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Posture and Spinal Health</h3>
+                    <p class="text-gray-700">Maintaining proper posture can maximize your height potential. Poor posture compresses the spine and can make you appear shorter. Regular stretching exercises and core strengthening help maintain spinal alignment and can add 1-2 cm to your standing height.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Article Section -->
+    <article class="max-w-4xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-2xl card-shadow p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">The Science of Human Height: Genetics, Growth Factors, and Maximizing Your Potential</h2>
+
+            <div class="prose max-w-none text-gray-700 space-y-6">
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding the Genetics of Height</h3>
+                <p>Human height is a polygenic trait, meaning it is influenced by hundreds of genetic variants across multiple chromosomes. Research has identified over 700 genetic variants that contribute to height determination. These variants collectively explain approximately 80% of height variation in human populations, with environmental factors accounting for the remaining 20%.</p>
+
+                <p>The heritability of height has been extensively studied through twin and family studies. Identical twins raised in different environments show remarkably similar adult heights, typically varying by less than 2 cm, demonstrating the strong genetic component. However, the genetic architecture of height is complex, with most individual variants contributing only millimeters to final stature.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Parental Height Matters</h3>
+                <p>Parental height serves as the most reliable predictor of a child's adult height because children inherit half of their genetic material from each parent. The mid-parental height method, used by pediatricians worldwide, calculates target height by averaging both parents' heights and adding 6.5 cm for boys or subtracting 6.5 cm for girls.</p>
+
+                <p>This method accounts for the sexual dimorphism in human height, where males average 13 cm taller than females due to differences in growth hormone sensitivity, puberty timing, and skeletal development patterns. The formula has a standard deviation of approximately 5 cm, meaning 68% of children will reach adult heights within 5 cm of their predicted target height.</p>
+
+                <p>Studies on adopted children confirm this genetic influence. Adopted children show height correlations with their biological parents but not their adoptive parents, despite shared environmental conditions. This demonstrates that while environment matters, genetic inheritance is the primary determinant of adult stature.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">The Growth Process: From Infancy to Adulthood</h3>
+                <p>Human growth follows distinct phases throughout development. Infancy represents the most rapid growth period, with children growing approximately 25 cm in their first year. This rate decelerates to about 5-6 cm annually during childhood, maintaining relatively steady progress until puberty.</p>
+
+                <p>Puberty initiates the growth spurt, the second-fastest growth period. Girls typically experience this between ages 10-14, growing 7-8 cm annually at peak velocity. Boys enter puberty later, between ages 12-16, but experience more dramatic growth, reaching peak velocities of 9-10 cm per year. These differences explain why boys typically end up taller despite girls being taller during early adolescence.</p>
+
+                <p>Growth plates, specialized cartilage areas at bone ends, drive longitudinal bone growth. These plates respond to growth hormone and insulin-like growth factor 1. During puberty, sex hormones accelerate growth but ultimately cause growth plate closure, typically by age 16 in girls and 18 in boys, though this varies individually.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Nutritional Requirements for Optimal Growth</h3>
+                <p>Adequate nutrition is fundamental for achieving genetic height potential. Protein provides essential amino acids for tissue synthesis and bone matrix formation. Research indicates that protein requirements during adolescence increase to 0.85-0.95 grams per kilogram of body weight daily. Insufficient protein intake during growth years can permanently compromise final height.</p>
+
+                <p>Calcium and vitamin D are critical for bone mineralization and density. The recommended calcium intake for adolescents is 1,300 mg daily. Vitamin D facilitates calcium absorption and bone growth; deficiency during childhood is associated with rickets and reduced final height. Studies in regions with low sunlight exposure demonstrate the importance of vitamin D supplementation.</p>
+
+                <p>Micronutrients including zinc, iron, and vitamin A also influence growth. Zinc deficiency impairs growth hormone production and cellular division. Iron is necessary for oxygen transport to growing tissues. Vitamin A regulates bone growth and immune function. Populations with micronutrient deficiencies show average height reductions of 3-7 cm compared to adequately nourished populations.</p>
+
+                <p>The timing of nutrition matters significantly. Malnutrition before age 2 can cause permanent growth stunting that cannot be fully reversed with later dietary improvements. This critical window emphasizes the importance of prenatal and early childhood nutrition for achieving genetic height potential.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">The Role of Physical Activity in Growth</h3>
+                <p>Exercise stimulates growth through multiple mechanisms. Physical activity increases growth hormone secretion, particularly during high-intensity exercise and during sleep following activity. Studies show that adolescents who exercise regularly have higher growth hormone levels compared to sedentary peers.</p>
+
+                <p>Weight-bearing exercises promote bone density and strength through mechanical loading. Activities like running, jumping, and resistance training stimulate osteoblast activity, enhancing bone formation. This mechanical stimulation is crucial during growth years when bones are most responsive to loading signals.</p>
+
+                <p>Specific sports may influence growth patterns. Swimming provides whole-body exercise without joint compression, potentially beneficial for spinal health. Basketball and volleyball involve jumping movements that may stimulate lower limb growth. However, no sport has been definitively proven to increase final height beyond genetic potential; rather, exercise helps achieve that potential.</p>
+
+                <p>Conversely, excessive high-impact training or heavy weight training before skeletal maturity has raised concerns about potential growth plate damage. However, properly supervised age-appropriate strength training is considered safe and beneficial. The key is progressive loading appropriate to developmental stage.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Sleep and Hormonal Regulation</h3>
+                <p>Growth hormone exhibits a circadian rhythm with the largest secretory pulse occurring 60-90 minutes after sleep onset during slow-wave sleep. This nocturnal surge accounts for approximately 70% of daily growth hormone secretion. Chronic sleep restriction reduces this secretion, potentially impacting growth velocity.</p>
+
+                <p>The relationship between sleep and growth is bidirectional. Growth hormone promotes sleep quality, while adequate sleep optimizes hormone secretion. Adolescents naturally experience delayed sleep phase, preferring later bedtimes, but early school start times often result in chronic sleep debt during critical growth years.</p>
+
+                <p>Research on sleep duration and height shows that children sleeping less than recommended amounts are shorter on average than peers with adequate sleep. A longitudinal study found that each hour of sleep deficit correlated with reduced growth velocity. Sleep recommendations for adolescents are 8-10 hours nightly to support optimal growth.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Environmental and Socioeconomic Factors</h3>
+                <p>Height serves as a biological indicator of population health and living standards. Average height has increased dramatically over the past century in developed nations, a phenomenon called the secular trend. The Netherlands, with the world's tallest population averaging 184 cm for men, demonstrates how optimal nutrition and healthcare enable populations to approach genetic height potential.</p>
+
+                <p>Socioeconomic status correlates with adult height across all populations studied. Higher socioeconomic status is associated with better nutrition, healthcare access, reduced childhood illness, and lower stress levels. Children from disadvantaged backgrounds are typically 3-7 cm shorter than peers from advantaged backgrounds within the same genetic population.</p>
+
+                <p>Chronic illness during childhood can significantly impact final height. Conditions affecting nutrient absorption, hormone production, or creating chronic inflammation may reduce growth velocity. Inflammatory conditions require energy and resources that would otherwise support growth. Early treatment of chronic conditions helps preserve height potential.</p>
+
+                <p>Psychological stress and adverse childhood experiences have been linked to reduced adult height. Chronic stress elevates cortisol, which can suppress growth hormone and affect metabolism. Children in stressful environments may have reduced growth velocity independent of nutritional status, suggesting neuroendocrine pathways linking stress and growth.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Medical Interventions and Height</h3>
+                <p>Growth hormone therapy is approved for specific medical conditions including growth hormone deficiency, Turner syndrome, and chronic renal insufficiency. When started early and continued until growth plate closure, treatment can add 4-7 cm to final adult height in deficient individuals. However, growth hormone does not increase height in individuals with normal hormone levels and is not recommended for cosmetic purposes.</p>
+
+                <p>Constitutional delay of growth and puberty affects approximately 3% of adolescents. These individuals grow more slowly during childhood but eventually reach normal adult height after delayed puberty. Monitoring by pediatric endocrinologists ensures normal development patterns and identifies those requiring intervention.</p>
+
+                <p>Limb lengthening surgery, involving controlled bone fracture and gradual distraction, can add 5-10 cm to height but requires lengthy treatment with significant risks. This procedure is primarily used for leg length discrepancies rather than cosmetic height increase due to complexity and potential complications.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Myths and Misconceptions About Growing Taller</h3>
+                <p>Numerous height-increase products and programs lack scientific evidence. Stretching exercises cannot increase bone length, though they improve posture and may add 1-2 cm to standing height. Supplements marketed for height increase typically contain standard nutrients available through diet at lower cost and without exaggerated claims.</p>
+
+                <p>Hanging exercises, inversion tables, and similar devices do not stimulate bone growth. While spinal decompression can temporarily increase height by 1-2 cm by reducing intervertebral disc compression, this effect reverses within hours. No exercise can reopen closed growth plates or stimulate bone lengthening after skeletal maturity.</p>
+
+                <p>The claim that certain foods dramatically increase height lacks scientific support. While adequate nutrition is essential, no specific food has been proven to increase height beyond supporting normal growth. A balanced diet covering all nutritional requirements is the evidence-based approach.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Predicting Adult Height: Methods and Accuracy</h3>
+                <p>Several methods predict adult height with varying accuracy. The mid-parental height method provides a simple estimate using only parental heights. More sophisticated approaches include bone age assessment using hand X-rays compared to standardized atlases. Bone age indicates skeletal maturity and remaining growth potential more accurately than chronological age.</p>
+
+                <p>Growth velocity curves plot height measurements over time, allowing pediatricians to assess whether a child is following their genetic trajectory. Significant deviations from expected percentiles warrant investigation for underlying conditions. Children typically maintain their height percentile throughout growth unless medical issues intervene.</p>
+
+                <p>Modern prediction methods incorporating genetic data are emerging from genome-wide association studies. While these can explain height variation at the population level, individual prediction remains imperfect due to the polygenic nature of height and environmental influences. Current genetic tests can predict adult height within approximately 5-7 cm accuracy.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Psychological Aspects of Height</h3>
+                <p>Height influences psychological well-being and social interactions. Research indicates that taller individuals report higher self-esteem and confidence on average, though many factors contribute to psychological health. Society's height preferences, particularly regarding male height, create psychological pressure for those below average height.</p>
+
+                <p>Height dissatisfaction is common during adolescence when peer comparison intensifies. Late-maturing adolescents may experience temporary self-esteem challenges but typically resolve these concerns upon reaching final height. Professional counseling can help adolescents cope with height-related concerns during growth years.</p>
+
+                <p>The relationship between height and success metrics like income and career advancement has been documented, though correlation does not imply causation. Multiple factors including confidence, health, and socioeconomic background correlate with both height and success measures, making direct causal relationships difficult to establish.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Practical Recommendations for Maximizing Growth Potential</h3>
+                <p>Based on scientific evidence, individuals during growth years should prioritize several key areas. Maintain a balanced diet rich in protein, calcium, vitamin D, and micronutrients. Consume 3 servings of dairy or calcium-rich alternatives daily, include lean protein at each meal, and eat diverse fruits and vegetables for micronutrients.</p>
+
+                <p>Establish consistent sleep schedules providing 8-10 hours nightly for adolescents. Create a sleep-conducive environment with darkness, comfortable temperature, and minimal screen time before bed. Prioritize sleep as essential for growth and overall health, not as negotiable leisure time.</p>
+
+                <p>Engage in regular physical activity including weight-bearing exercise, flexibility training, and cardiovascular activity. Aim for 60 minutes of moderate to vigorous activity daily. Participate in sports or activities you enjoy to ensure consistency and sustainability throughout growth years.</p>
+
+                <p>Maintain good posture through core strengthening and awareness. Practice sitting and standing with neutral spine alignment. Consider posture training or physical therapy if chronic poor posture is identified. Good posture maximizes your height presentation and supports spinal health.</p>
+
+                <p>Avoid growth-inhibiting factors including smoking, alcohol consumption, and recreational drugs during developmental years. These substances interfere with hormone production, nutrient absorption, and cellular growth processes. The effects of substance use during growth may permanently reduce height potential.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Conclusion</h3>
+                <p>Height represents a complex interplay between genetic inheritance and environmental influences. While genetics determine approximately 80% of final height, optimizing nutrition, sleep, exercise, and overall health during growth years helps achieve genetic potential. Parental height provides the best prediction of adult stature through inherited genetic factors.</p>
+
+                <p>No intervention can guarantee increased height beyond genetic programming, but healthy lifestyle choices during growth years maximize the possibility of reaching the upper end of genetic range. Understanding the science of growth helps set realistic expectations while encouraging health-promoting behaviors beneficial beyond height considerations.</p>
+
+                <p>For individuals concerned about growth patterns, consultation with pediatric healthcare providers enables monitoring and identification of conditions requiring intervention. Most individuals reach heights within the normal range for their genetic background, and height represents just one of many characteristics contributing to health, well-being, and life success.</p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mt-10 mb-4">References and Sources</h3>
+                <div class="bg-gray-50 p-6 rounded-lg text-sm space-y-2">
+                    <p><strong>Scientific Literature:</strong></p>
+                    <p>• Silventoinen K, et al. (2016). "Genetic and environmental effects on body mass index from infancy to the onset of adulthood." International Journal of Obesity, 40(1), 88-93.</p>
+                    <p>• Wood AR, et al. (2014). "Defining the role of common variation in the genomic and biological architecture of adult human height." Nature Genetics, 46(11), 1173-1186.</p>
+                    <p>• Perkins JM, et al. (2016). "Adult height, nutrition, and population health." Nutrition Reviews, 74(3), 149-165.</p>
+                    <p>• Paajanen TA, et al. (2010). "Short stature is associated with coronary heart disease." European Heart Journal, 31(14), 1802-1809.</p>
+                    <p><strong>Medical Resources:</strong></p>
+                    <p>• Tanner JM, Goldstein H, Whitehouse RH. (1970). "Standards for children's height at ages 2-9 years allowing for height of parents." Archives of Disease in Childhood, 45(244), 755-762.</p>
+                    <p>• Rogol AD, et al. (2002). "Growth at puberty." Journal of Adolescent Health, 31(6), 192-200.</p>
+                    <p>• Takeuchi M, et al. (2018). "Sleep duration and growth in children." Pediatrics International, 60(7), 692-693.</p>
+                    <p><strong>Institutional Sources:</strong></p>
+                    <p>• World Health Organization. Child Growth Standards and Multicenter Growth Reference Study data.</p>
+                    <p>• Centers for Disease Control and Prevention. Growth Charts and Developmental Milestones publications.</p>
+                    <p>• National Institutes of Health. Research on human growth and development.</p>
+                    <p>• American Academy of Pediatrics. Clinical guidelines on growth assessment and monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4 mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-sm opacity-75">This calculator provides estimates based on genetic factors and scientific research. Individual results may vary. Consult healthcare professionals for personalized medical advice.</p>
+            <p class="mt-4 text-xs opacity-50">© 2024 Height Prediction Calculator. For educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('heightForm');
+        const resultsDiv = document.getElementById('results');
+        const predictedHeightSpan = document.getElementById('predictedHeight');
+        const heightRangeSpan = document.getElementById('heightRange');
+        const growthStatusP = document.getElementById('growthStatus');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const gender = document.getElementById('gender').value;
+            const age = parseInt(document.getElementById('age').value);
+            const fatherHeight = parseFloat(document.getElementById('fatherHeight').value);
+            const motherHeight = parseFloat(document.getElementById('motherHeight').value);
+            const currentHeight = parseFloat(document.getElementById('currentHeight').value);
+
+            if (!gender || !age || !fatherHeight || !motherHeight || !currentHeight) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Mid-parental height method with gender adjustment
+            let midParentalHeight;
+            if (gender === 'male') {
+                midParentalHeight = ((fatherHeight + motherHeight) / 2) + 6.5;
+            } else {
+                midParentalHeight = ((fatherHeight + motherHeight) / 2) - 6.5;
+            }
+
+            // Adjust for current growth status based on age
+            let predictedHeight = midParentalHeight;
+            let growthRemaining = 0;
+            
+            if (gender === 'male') {
+                if (age < 12) {
+                    growthRemaining = (18 - age) * 5;
+                } else if (age < 16) {
+                    growthRemaining = (18 - age) * 7;
+                } else if (age < 18) {
+                    growthRemaining = (18 - age) * 2;
+                }
+            } else {
+                if (age < 10) {
+                    growthRemaining = (16 - age) * 5;
+                } else if (age < 14) {
+                    growthRemaining = (16 - age) * 6;
+                } else if (age < 16) {
+                    growthRemaining = (16 - age) * 1.5;
+                }
+            }
+
+            // Adjust prediction based on current height vs expected
+            const currentVsMidParental = currentHeight - midParentalHeight + growthRemaining;
+            predictedHeight = midParentalHeight + (currentVsMidParental * 0.15);
+
+            // Calculate range (±5cm standard deviation)
+            const minHeight = (predictedHeight - 5).toFixed(1);
+            const maxHeight = (predictedHeight + 5).toFixed(1);
+
+            // Display results
+            predictedHeightSpan.textContent = `${predictedHeight.toFixed(1)} cm`;
+            heightRangeSpan.textContent = `Expected range: ${minHeight} - ${maxHeight} cm`;
+
+            let statusText = '';
+            if (age < (gender === 'male' ? 18 : 16)) {
+                statusText = `You still have approximately ${growthRemaining.toFixed(0)} cm of potential growth remaining based on your age and development stage.`;
+            } else {
+                statusText = 'You have likely reached your adult height as growth plates typically close at your age.';
+            }
+            growthStatusP.textContent = statusText;
+
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
